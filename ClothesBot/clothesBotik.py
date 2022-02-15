@@ -73,7 +73,6 @@ def setGetSize(call):
     size = sizes[sizes_find][gender][typeOfSize]
     users[call.from_user.id]['size'] = size
     bot.send_message(call.from_user.id, f'Ваш размер: {size}')
-    # return(users[call.from_user.id]['size'])
 
 
 def pjson(items):
@@ -82,8 +81,6 @@ def pjson(items):
         str1 += "Производитель: "+ item['brand'] + " \n\nЦвет: " + item['color'] + ""\
             " \n\nСтоимость: " + str(item['cost']['dollar']) +"$ " + str(item['cost']['rub'])  + " р."\
             "\n\nСсылка: " + item['link'] + "\n\n\n\n"
-    # for item1 in item['items']:
-    #     str1+=f"Пол: {item1['gender']}clc Размеры: USA:{item1['USA']} EVRO:{item1['evro']} RUS:{item1['rus']} \n"
     return str1
 
 def get_all_shtani():
@@ -144,7 +141,6 @@ def callback_worker(call):
     #
         elif call.data in pants:
             users[call.from_user.id]['pants'] = translate[call.data]
-            #getCat(setGetSizeFunction,call)
             getCat(daNet,call,dial9)
     #
     #функция доп параметров
@@ -203,15 +199,13 @@ def callback_worker(call):
             fileObject = open("data.json", "r", encoding = "UTF-8")
             jsonContent = fileObject.read()
             geans = json.loads(jsonContent)
-            #with open('data.json', 'r') as j:
-            #    geans = json.load(j)
             items = []
             for gean in geans:
                 if gean['size'][users[call.from_user.id]['gender']][users[call.from_user.id]['typeOfSize']] == users[call.from_user.id]['size'] and gean['type'] == users[call.from_user.id]['type'] and gean['color'] == users[call.from_user.id]['color'] and int(users[call.from_user.id]['mincost']) <= int(gean['cost']['rub']) <= int(users[call.from_user.id]['maxcost']) and gean['brand'] == users[call.from_user.id]['brand'] :
                     items.append(gean)
             bot.send_message(call.from_user.id, pjson(items))
             pjson(items)
-        if call.data in bedros: # Это самый простой вариант. Тупо скопировать
+        if call.data in bedros: 
             if call.data in getSize(users[call.from_user.id]['gender'],users[call.from_user.id]['typeOfSize']):
                 users[call.from_user.id]['size'] = call.data
             elif call.data in bedros:
@@ -220,8 +214,6 @@ def callback_worker(call):
             fileObject = open("data.json", "r", encoding = "UTF-8")
             jsonContent = fileObject.read()
             geans = json.loads(jsonContent)
-            #with open('data.json', 'r') as j:
-            #    geans = json.load(j)
             items = []
             for gean in geans:
                 if gean['size'][users[call.from_user.id]['gender']][users[call.from_user.id]['typeOfSize']] == users[call.from_user.id]['size'] and gean['type'] == users[call.from_user.id]['type'] and gean['color'] == users[call.from_user.id]['color'] and int(users[call.from_user.id]['mincost']) <= int(gean['cost']['rub']) <= int(users[call.from_user.id]['maxcost']) and gean['brand'] == users[call.from_user.id]['brand'] :
